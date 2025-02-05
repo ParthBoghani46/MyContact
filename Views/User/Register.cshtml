@@ -1,0 +1,97 @@
+@* @using MyContact.Repositories *@
+@model MyContact.Models.t_User
+@{
+    ViewData["Title"] = "Register User";
+    Layout = "../Shared/_UserLayout.cshtml";
+
+}
+<div class="container mt-5" style="border: 1px solid #ccc; width: 70%;padding:20px">
+    <form enctype="multipart/form-data" asp-action="Register" asp-controller="User" method="post">
+        <h3>Register</h3>
+        <div class="modal-body">
+            @* <input type="hidden" asp-for="c_userId" id="userid"> *@
+            <input type="hidden" asp-for="c_Image" id="image">
+
+            <div class="mt-3">
+                <label class="control-label mt-1" for="name">Name : </label>
+                <div class="mt-1">
+                    <input type="text" class="form-control" asp-for="c_userName" id="name" placeholder="Enter name" />
+                </div>
+                <span class="text-danger" asp-validation-for="c_userName"></span>
+            </div>
+            <div class="mt-3">
+                <label class="control-label mt-1" for="email">Email : </label>
+                <div class="mt-1">
+                    <input type="text" class="form-control" asp-for="c_Email" id="email" placeholder="Enter email" />
+                </div>
+                <span class="text-danger" asp-validation-for="c_Email"></span>
+            </div>
+            <div class="mt-3">
+                <label class="control-label mt-1" for="password">Password : </label>
+                <div class="mt-1">
+                    <input type="password" class="form-control" asp-for="c_Password" id="password"
+                        placeholder="Enter password" />
+                </div>
+                <span class="text-danger" asp-validation-for="c_Password"></span>
+            </div>
+            <div class="mt-3">
+                <label class="control-label mt-1" for="cpassword">Confirm Password : </label>
+                <div class="mt-1">
+                    <input type="password" class="form-control" asp-for="ConfirmPassword" id="cpassword"
+                        placeholder="ReEnter password" />
+                </div>
+                <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+            </div>
+            <div class="mt-3">
+                <label class="control-label mt-1" for="address">Address : </label>
+                <div class="mt-1">
+                    <input type="text" class="form-control" asp-for="c_Address" id="address"
+                        placeholder="Enter address" />
+                </div>
+                <span class="text-danger" asp-validation-for="c_Address"></span>
+            </div>
+            <div class="mt-3">
+                <label class="control-label mt-1" for="mobile">Mobile : </label>
+                <div class="mt-1">
+                    <input type="text" class="form-control" asp-for="c_Mobile" id="mobile" placeholder="Enter mobile" />
+                </div>
+                <span class="text-danger" asp-validation-for="c_Mobile"></span>
+            </div>
+            <div class="mt-3">
+                <label class="control-label mt-1" for="gender" Gender:</label>
+                    <div class="mt-1">
+                        <input type="radio" id="gender1" asp-for="c_Gender" value="Male"> Male
+                        <input type="radio" id="gender2" asp-for="c_Gender" value="Female"> Female
+                        <input type="radio" id="gender3" asp-for="c_Gender" value="Other"> Other
+                    </div>
+                    <span class="text-danger" asp-validation-for="c_Gender"></span>
+            </div>
+            <div class="mt-3">
+                <label class="control-label mt-1" for="image">Image : </label>
+                <div class="mt-1">
+                    <input type="file" asp-for="ProfilePicture" class="form-control" id="image">
+                </div>
+                <span class="text-danger" asp-validation-for="ProfilePicture"></span>
+            </div>
+
+            <div id="responseMessage" class="mt-3">
+                <div class="alert @(TempData["Message"]!=null?"alert-danger":"")">@TempData["Message"]</div>
+            </div>
+
+        </div>
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div id="responseMessage" class="mt-3">
+            @TempData["Message"]
+        </div>
+        <div class="mt-3">
+            <div class="mt-1">
+                <button type="submit" class="btn btn-primary" id="register">Register</button>
+
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

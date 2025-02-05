@@ -1,0 +1,99 @@
+@model MyContact.Models.t_Contact
+@using MyContact.Repositories
+@{
+    ViewData["Title"] = "Create Contact";
+    Layout = "../Shared/_ContactLayout.cshtml";
+}
+<div class="container">
+    <form enctype="multipart/form-data" asp-action="Create" asp-controller="Contact" method="post">
+        <div class="modal-body">
+            <input type="hidden" asp-for="c_contactId" id="contactid">
+            <input type="hidden" asp-for="c_Image" id="image">
+
+            <div class="mt-3">
+                <label class="control-label mt-1" for="name">Name : </label>
+                <div class="mt-1">
+                    <input type="text" class="form-control" asp-for="c_contactName" id="name"
+                        placeholder="Enter name" />
+                </div>
+            </div>
+            <div class="mt-3">
+                <label class="control-label mt-1" for="email">Email : </label>
+                <div class="mt-1">
+                    <input type="text" class="form-control" asp-for="c_Email" id="email" placeholder="Enter email" />
+                </div>
+            </div>
+            <div class="mt-3">
+                <label class="control-label mt-1" for="address">Address : </label>
+                <div class="mt-1">
+                    <input type="text" class="form-control" asp-for="c_Address" id="address"
+                        placeholder="Enter address" />
+                </div>
+            </div>
+            <div class="mt-3">
+                <label class="control-label mt-1" for="mobile">Mobile : </label>
+                <div class="mt-1">
+                    <input type="text" class="form-control" asp-for="c_Mobile" id="mobile" placeholder="Enter mobile" />
+                </div>
+            </div>
+            
+            <div class="mt-3">
+                <label class="control-label mt-1" for="group">Group : </label>
+                <div class="mt-1">
+                    <input class="group-checkbox" type="checkbox" id="relative" value="Relative"
+                        @(Model.c_Group!=null && Model.c_Group.Contains("Relative")?"checked":"")>
+                        Relative
+                    <input class="group-checkbox" type="checkbox" id="friend" value="Friend"
+                        @(Model.c_Group!=null && Model.c_Group.Contains("Friend")?"checked":"")>
+                        Friend
+                    <input class="group-checkbox" type="checkbox" id="social" value="Social"
+                        @(Model.c_Group!=null && Model.c_Group.Contains("Social")?"checked":"")>
+                        Social
+                    <input class="group-checkbox" type="checkbox" id="professional" value="Professional"
+                        @(Model.c_Group!=null && Model.c_Group.Contains("Professional")?"checked":"")>
+                        Professional
+                    <input type="hidden" id="c_Group" asp-for="c_Group"/>
+                    
+                </div>
+            </div>
+            <div class="mt-3">
+                <label class="control-label mt-1" for="group">Status : </label>
+                <div class="mt-1">
+                    <select id="status" asp-for="c_Status" class="form-control">
+                        <option value="Favourite">Favourite</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+            </div>
+            <div class="mt-3">
+                <label class="control-label mt-1" for="image">Image : </label>
+                <div class="mt-1">
+                    <input type="file" asp-for="ProfilePicture"class="form-control" id="image">
+                    <div id="img"></div>
+                </div>
+                <div style="@(string.IsNullOrEmpty(Model.c_Image)?"display:none;": "")">
+                    <img id="image" src="../../contact_images/@Model.c_Image width="50" style="border-radius: 50%;"/>
+                </div>
+            </div>
+
+            <div id="responseMessage" class="mt-3">
+                <div class="alert @(TempData["Message"]!=null?"alert-danger":"")">@TempData["Message"]</div>
+            </div>
+
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" onclick="saveData()" id="btnsave">Submit</button>
+        </div>
+    </form>
+</div>
+<script>
+    document.querySelectorAll('.group-checkbox').forEach(checkbox=>{
+        checkbox.addEventListener('change',()=>{
+            const selectedValues = Array.from(document.querySelectorAll('.group-checkbox:checked')).map(cb => cb.value).join(',');
+            document.getElementById('c_Group').value = selectedValues
+        })
+    })
+</script>
+
+

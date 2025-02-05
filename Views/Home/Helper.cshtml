@@ -1,0 +1,19 @@
+@model MyViewModel
+@using (Html.BeginForm("Helper", "Home", FormMethod.Post))
+{
+    <div class="alert @(ViewData["Message"] != null ? "alert-primary" : "" )">
+
+        @ViewData["Message"]
+
+    </div>
+    <div>
+        @Html.LabelFor(model => model.FirstName)
+        @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control" })
+    </div>
+    <div>
+        @Html.LabelFor(model => model.LastName)
+        @Html.TextBoxFor(model => model.LastName, new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
