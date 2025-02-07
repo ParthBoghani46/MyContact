@@ -37,3 +37,4 @@ D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\FluentValidation.dll
 D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
 D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
 D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.MvcApplicationPartsAssemblyInfo.cs
+D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.sourcelink.json

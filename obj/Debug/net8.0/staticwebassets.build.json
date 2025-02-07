@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gJn5OjkLAn5jSCQWoiS38zcNAYxCNVmW5Wf7zTXYsjc=",
+  "Hash": "2Oq44fDkct+OeLodHdEK2dSPUSxsFVz986aMfzZzWsQ=",
   "Source": "MyContact",
   "BasePath": "_content/MyContact",
   "Mode": "Default",
@@ -167,6 +167,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\contact_images\\user.png"
+    },
+    {
+      "Identity": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\viral@gmail.com.jpg",
+      "SourceId": "MyContact",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\",
+      "BasePath": "_content/MyContact",
+      "RelativePath": "contact_images/viral@gmail.com.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\contact_images\\viral@gmail.com.jpg"
     },
     {
       "Identity": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\css\\site.css",
@@ -1307,6 +1326,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery\\LICENSE.txt"
+    },
+    {
+      "Identity": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\profile_images\\bhimani@gmail.com.jpg",
+      "SourceId": "MyContact",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\",
+      "BasePath": "_content/MyContact",
+      "RelativePath": "profile_images/bhimani@gmail.com.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\profile_images\\bhimani@gmail.com.jpg"
     },
     {
       "Identity": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\profile_images\\nishit@gmail.com.jpg",

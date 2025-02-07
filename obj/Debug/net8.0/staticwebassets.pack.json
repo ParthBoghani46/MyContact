@@ -29,6 +29,10 @@
       "PackagePath": "staticwebassets\\contact_images\\user.png"
     },
     {
+      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\viral@gmail.com.jpg",
+      "PackagePath": "staticwebassets\\contact_images\\viral@gmail.com.jpg"
+    },
+    {
       "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
@@ -267,6 +271,10 @@
     {
       "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\profile_images\\bhimani@gmail.com.jpg",
+      "PackagePath": "staticwebassets\\profile_images\\bhimani@gmail.com.jpg"
     },
     {
       "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\profile_images\\nishit@gmail.com.jpg",
