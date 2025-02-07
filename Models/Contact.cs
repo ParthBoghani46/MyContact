@@ -37,7 +37,7 @@ namespace MyContact.Models
         [StringLength(20)]
         public string? c_Status { get; set; }
 
-        public IFormFile? ProfilePicture { get; set; }
+        public IFormFile? ContactPicture { get; set; }
 
     }
 }

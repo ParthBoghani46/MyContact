@@ -52,16 +52,16 @@ namespace MyContact
             {
                 if (HttpContext.Session.GetInt32("UserId") != null)
                 {
-                    if (contact.ProfilePicture != null && contact.ProfilePicture.Length > 0)
+                    if (contact.ContactPicture != null && contact.ContactPicture.Length > 0)
                     {
 
-                        var fileName = contact.c_Email + Path.GetExtension(contact.ProfilePicture.FileName);
+                        var fileName = contact.c_Email + Path.GetExtension(contact.ContactPicture.FileName);
                         var filePath = Path.Combine("./wwwroot/contact_images/", fileName);
                         Directory.CreateDirectory(Path.Combine("./wwwroot/contact_images"));
                         contact.c_Image = fileName;
                         using (var stream = new FileStream(filePath, FileMode.Create))
                         {
-                            contact.ProfilePicture.CopyTo(stream);
+                            contact.ContactPicture.CopyTo(stream);
                         }
                     }
                     // Console.WriteLine("contact.c_fname: " + contact.c_contactName);
