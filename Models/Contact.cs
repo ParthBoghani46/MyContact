@@ -34,8 +34,8 @@ namespace MyContact.Models
         [StringLength(4000)]
         public string? c_Image { get; set; }
 
-        [StringLength(20)]
-        public string? c_Status { get; set; }
+
+        public int c_Status { get; set; }
 
         public IFormFile? ContactPicture { get; set; }
 

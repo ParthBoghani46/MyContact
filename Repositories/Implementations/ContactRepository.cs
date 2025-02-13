@@ -18,6 +18,43 @@ namespace MyContact.Repositories
             _conn = connection;
             _httpContextAccessor = httpContextAccessor;
         }
+
+        public async Task<List<Status>> GetStatusList()
+        {
+            DataTable dt = new DataTable();
+            List<Status> statusList = new List<Status>();
+            try
+            {
+                using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_status", _conn))
+                {
+
+                    _conn.Close();
+                    _conn.Open();
+                    NpgsqlDataReader datar = cm.ExecuteReader();
+                    if (datar.HasRows)
+                    {
+                        dt.Load(datar);
+                    }
+
+
+                    statusList = (from DataRow dr in dt.Rows
+                                  select new Status()
+                                  {
+                                      statusId = Convert.ToInt32(dr["c_statusid"]),
+                                      status = dr["c_statusname"].ToString()
+
+                                  }).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error status :" + ex.Message);
+            }
+            _conn.Close();
+            return statusList;
+        }
+
         public async Task<int> Add(t_Contact contactData)
         {
             try
@@ -104,7 +141,7 @@ namespace MyContact.Repositories
                                    c_Address = dr["c_address"].ToString(),
                                    c_Image = dr["c_image"].ToString(),
                                    c_Group = dr["c_group"].ToString(),
-                                   c_Status = dr["c_status"].ToString()
+                                   c_Status = (int)dr["c_status"]
 
                                }).ToList();
             }
@@ -113,11 +150,11 @@ namespace MyContact.Repositories
 
         }
 
-        public async Task<List<t_Contact>> GetAllByUser(string userid)
+        public async Task<List<ContactListViewModel>> GetAllByUser(string userid)
         {
             DataTable dt = new DataTable();
-            List<t_Contact> contactList = new List<t_Contact>();
-            using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_contacts where c_userid=@userId", _conn))
+            List<ContactListViewModel> contactList = new List<ContactListViewModel>();
+            using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_contacts join t_status on t_contacts.c_status = t_status.c_statusid where c_userid=@userId", _conn))
             {
                 cm.Parameters.AddWithValue("@userId", Int32.Parse(userid));
                 _conn.Close();
@@ -132,17 +169,21 @@ namespace MyContact.Repositories
 
                 contactList = (from DataRow dr in dt.Rows
                                where dr["c_userid"].ToString() == userid
-                               select new t_Contact()
+                               select new ContactListViewModel()
                                {
-                                   c_contactId = Convert.ToInt32(dr["c_contactid"]),
-                                   c_userId = int.Parse(dr["c_userid"].ToString()),
-                                   c_contactName = dr["c_Contactname"].ToString(),
-                                   c_Email = dr["c_email"].ToString(),
-                                   c_Mobile = dr["c_mobile"].ToString(),
-                                   c_Address = dr["c_address"].ToString(),
-                                   c_Image = dr["c_image"].ToString(),
-                                   c_Group = dr["c_group"].ToString(),
-                                   c_Status = dr["c_status"].ToString()
+                                   contact = new t_Contact()
+                                   {
+                                       c_contactId = Convert.ToInt32(dr["c_contactid"]),
+                                       c_userId = int.Parse(dr["c_userid"].ToString()),
+                                       c_contactName = dr["c_Contactname"].ToString(),
+                                       c_Email = dr["c_email"].ToString(),
+                                       c_Mobile = dr["c_mobile"].ToString(),
+                                       c_Address = dr["c_address"].ToString(),
+                                       c_Image = dr["c_image"].ToString(),
+                                       c_Group = dr["c_group"].ToString(),
+                                       c_Status = (int)dr["c_status"],
+                                   },
+                                   c_StatusName = dr["c_statusname"].ToString()
 
                                }).ToList();
             }
@@ -172,7 +213,7 @@ namespace MyContact.Repositories
                         c_Address = datar["c_address"].ToString(),
                         c_Image = datar["c_image"].ToString(),
                         c_Group = datar["c_group"].ToString(),
-                        c_Status = datar["c_status"].ToString()
+                        c_Status = (int)datar["c_status"]
                     };
                 }
             }

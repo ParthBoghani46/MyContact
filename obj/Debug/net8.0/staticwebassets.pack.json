@@ -5,12 +5,28 @@
       "PackagePath": "staticwebassets\\MyContact.bundle.scp.css"
     },
     {
-      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\dev@gmail.com.jpg",
-      "PackagePath": "staticwebassets\\contact_images\\dev@gmail.com.jpg"
+      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\adfafaf@gmail.jpg",
+      "PackagePath": "staticwebassets\\contact_images\\adfafaf@gmail.jpg"
     },
     {
-      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\kenil@gmail.com.jpg",
-      "PackagePath": "staticwebassets\\contact_images\\kenil@gmail.com.jpg"
+      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\boghani111@gmail.jpg",
+      "PackagePath": "staticwebassets\\contact_images\\boghani111@gmail.jpg"
+    },
+    {
+      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\contact1@gmail.png",
+      "PackagePath": "staticwebassets\\contact_images\\contact1@gmail.png"
+    },
+    {
+      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\contact2@gmail.jpg",
+      "PackagePath": "staticwebassets\\contact_images\\contact2@gmail.jpg"
+    },
+    {
+      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\kenil@gmail.png",
+      "PackagePath": "staticwebassets\\contact_images\\kenil@gmail.png"
+    },
+    {
+      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\kenilbhai@gmail.jpg",
+      "PackagePath": "staticwebassets\\contact_images\\kenilbhai@gmail.jpg"
     },
     {
       "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\parth123@gmail.com.jpg",
@@ -21,8 +37,8 @@
       "PackagePath": "staticwebassets\\contact_images\\parth12@gmail.com.jpg"
     },
     {
-      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\sahil@yahoo.com.jpg",
-      "PackagePath": "staticwebassets\\contact_images\\sahil@yahoo.com.jpg"
+      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\raj@gmail.com.png",
+      "PackagePath": "staticwebassets\\contact_images\\raj@gmail.com.png"
     },
     {
       "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\contact_images\\user.png",
@@ -273,6 +289,10 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\profile_images\\bhimani123@gmail.com.jpg",
+      "PackagePath": "staticwebassets\\profile_images\\bhimani123@gmail.com.jpg"
+    },
+    {
       "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\profile_images\\bhimani@gmail.com.jpg",
       "PackagePath": "staticwebassets\\profile_images\\bhimani@gmail.com.jpg"
     },
@@ -281,12 +301,24 @@
       "PackagePath": "staticwebassets\\profile_images\\nishit@gmail.com.jpg"
     },
     {
+      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\profile_images\\parth12345@gmail.com.jpg",
+      "PackagePath": "staticwebassets\\profile_images\\parth12345@gmail.com.jpg"
+    },
+    {
       "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\profile_images\\parth123@gmail.com.png",
       "PackagePath": "staticwebassets\\profile_images\\parth123@gmail.com.png"
     },
     {
+      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\profile_images\\parth12@gmail.com.jpg",
+      "PackagePath": "staticwebassets\\profile_images\\parth12@gmail.com.jpg"
+    },
+    {
       "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\profile_images\\parth12@gmail.com.png",
       "PackagePath": "staticwebassets\\profile_images\\parth12@gmail.com.png"
+    },
+    {
+      "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\profile_images\\raj123@gmail.com.jpg",
+      "PackagePath": "staticwebassets\\profile_images\\raj123@gmail.com.jpg"
     },
     {
       "Id": "D:\\Internship\\Technology\\MVC\\MyContact\\wwwroot\\profile_images\\uday@gmail.com.png",

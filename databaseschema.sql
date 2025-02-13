@@ -20,3 +20,15 @@ c_mobile VARCHAR(50),
 c_gender VARCHAR(10),
 c_image VARCHAR(4000)
 )
+
+
+CREATE TABLE t_status(
+c_statusid int primary key,
+c_statusname varchar(255)
+);
+
+
+INSERT INTO t_status (c_statusid, c_statusname) VALUES
+(1, 'Active'),
+(2, 'Inactive'),
+(3, 'Favourite');

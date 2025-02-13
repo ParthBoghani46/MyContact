@@ -1,4 +1,4 @@
-@model IEnumerable<MyContact.Models.t_Contact>
+@model IEnumerable<MyContact.Models.ContactListViewModel>
 @using MyContact.Repositories
 @{
     ViewData["Title"] = "Contact List";
@@ -29,18 +29,18 @@
         @foreach (var contact in Model)
         {
                 <tr style="vertical-align: middle;">
-                    <td><a href="@Url.Action("Create","Contact" , new {id = contact.c_contactId})" class="btn btn-sm btn-primary">Edit</a></td>
-                    <td><img id="image" src="@(contact.c_Image !=""?$"../../contact_images/{contact.c_Image}": "../../contact_images/user.png")"
+                    <td><a href="@Url.Action("Create","Contact" , new {id = contact.contact.c_contactId})" class="btn btn-sm btn-primary">Edit</a></td>
+                    <td><img id="image" src="@(contact.contact.c_Image !=""?$"../../contact_images/{contact.contact.c_Image}": "../../contact_images/user.png")"
                     width="50" style="border-radius: 50%; width: 50px;height: 50px;"
                     
                     /></td>
-                    <td>@contact.c_contactName</td>
-                    <td>@contact.c_Email</td>
-                    <td>@contact.c_Group</td>                    
-                    <td>@contact.c_Address</td>
-                    <td>@contact.c_Mobile</td>
-                    <td>@contact.c_Status</td>
-                    <td><a href="@Url.Action("Delete","Contact" , new {id = contact.c_contactId})" class="btn btn-sm btn-primary">Delete</a></td>
+                    <td>@contact.contact.c_contactName</td>
+                    <td>@contact.contact.c_Email</td>
+                    <td>@contact.contact.c_Group</td>                    
+                    <td>@contact.contact.c_Address</td>
+                    <td>@contact.contact.c_Mobile</td>
+                    <td>@contact.c_StatusName</td>
+                    <td><a href="@Url.Action("Delete","Contact" , new {id = contact.contact.c_contactId})" class="btn btn-sm btn-primary">Delete</a></td>
                 </tr>
         }
         </tbody>

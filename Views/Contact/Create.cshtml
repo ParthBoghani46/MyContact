@@ -72,9 +72,7 @@
                     <input type="file" asp-for="ContactPicture"class="form-control" id="image">
                     <div id="img"></div>
                 </div>
-                <div style="@(string.IsNullOrEmpty(Model.c_Image)?"display:none;": "")">
-                    <img id="image" src="../../contact_images/@Model.c_Image width="50" style="border-radius: 50%;"/>
-                </div>
+                
             </div>
 
             <div id="responseMessage" class="mt-3">

@@ -6,6 +6,9 @@ D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\MyContact.deps.json
 D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\MyContact.runtimeconfig.json
 D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\MyContact.dll
 D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\MyContact.pdb
+D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\FluentValidation.dll
+D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
+D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
 D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\Npgsql.dll
@@ -14,9 +17,11 @@ D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.GeneratedMSBui
 D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.AssemblyInfoInputs.cache
 D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.AssemblyInfo.cs
 D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.csproj.CoreCompileInputs.cache
+D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.MvcApplicationPartsAssemblyInfo.cs
 D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.MvcApplicationPartsAssemblyInfo.cache
 D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.RazorAssemblyInfo.cache
 D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.RazorAssemblyInfo.cs
+D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.sourcelink.json
 D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\staticwebassets.build.json
 D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\staticwebassets.development.json
 D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\staticwebassets\msbuild.MyContact.Microsoft.AspNetCore.StaticWebAssets.props
@@ -33,8 +38,3 @@ D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\refint\MyContact.dll
 D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.pdb
 D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.genruntimeconfig.cache
 D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\ref\MyContact.dll
-D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\FluentValidation.dll
-D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\FluentValidation.AspNetCore.dll
-D:\Internship\Technology\MVC\MyContact\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
-D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.MvcApplicationPartsAssemblyInfo.cs
-D:\Internship\Technology\MVC\MyContact\obj\Debug\net8.0\MyContact.sourcelink.json

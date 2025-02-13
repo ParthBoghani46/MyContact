@@ -23,7 +23,7 @@ namespace MyContact
         {
             if (HttpContext.Session.GetInt32("UserId") != null)
             {
-                List<t_Contact> contacts = await _contact.GetAllByUser(HttpContext.Session.GetInt32("UserId").ToString());
+                List<ContactListViewModel> contacts = await _contact.GetAllByUser(HttpContext.Session.GetInt32("UserId").ToString());
                 return View(contacts);
             }
             else
