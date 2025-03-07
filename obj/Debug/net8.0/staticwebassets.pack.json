@@ -5,8 +5,16 @@
       "PackagePath": "staticwebassets\\MyContact.bundle.scp.css"
     },
     {
-      "Id": "D:\\Internship\\Technology\\MVC\\my contact\\MyContact\\wwwroot\\contact_images\\parth12@gmail.jpg",
-      "PackagePath": "staticwebassets\\contact_images\\parth12@gmail.jpg"
+      "Id": "D:\\Internship\\Technology\\MVC\\my contact\\MyContact\\wwwroot\\contact_images\\dev@gmail.jpg",
+      "PackagePath": "staticwebassets\\contact_images\\dev@gmail.jpg"
+    },
+    {
+      "Id": "D:\\Internship\\Technology\\MVC\\my contact\\MyContact\\wwwroot\\contact_images\\parth12@gmail.jpeg",
+      "PackagePath": "staticwebassets\\contact_images\\parth12@gmail.jpeg"
+    },
+    {
+      "Id": "D:\\Internship\\Technology\\MVC\\my contact\\MyContact\\wwwroot\\contact_images\\pratham@gmail.jpeg",
+      "PackagePath": "staticwebassets\\contact_images\\pratham@gmail.jpeg"
     },
     {
       "Id": "D:\\Internship\\Technology\\MVC\\my contact\\MyContact\\wwwroot\\contact_images\\user.png",
@@ -251,6 +259,10 @@
     {
       "Id": "D:\\Internship\\Technology\\MVC\\my contact\\MyContact\\wwwroot\\lib\\jquery\\dist\\jquery.min.map",
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
+    },
+    {
+      "Id": "D:\\Internship\\Technology\\MVC\\my contact\\MyContact\\wwwroot\\profile_images\\jatin@gmail.com.jpeg",
+      "PackagePath": "staticwebassets\\profile_images\\jatin@gmail.com.jpeg"
     },
     {
       "Id": "D:\\Internship\\Technology\\MVC\\my contact\\MyContact\\wwwroot\\profile_images\\user.png",

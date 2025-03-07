@@ -25,122 +25,31 @@ namespace MyContact.Repositories
 
         public async Task<List<State>> GetState()
         {
-            if (_conn.State == System.Data.ConnectionState.Closed)
-            {
-                await _conn.OpenAsync();
-            }
-            DataTable dt = new DataTable();
             List<State> stateList = new List<State>();
-            try
-            {
-                using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_states", _conn))
-                {
 
-                    NpgsqlDataReader datar = cm.ExecuteReader();
-                    if (datar.HasRows)
-                    {
-                        dt.Load(datar);
-                    }
-                    stateList = (from DataRow dr in dt.Rows
-                                 select new State()
-                                 {
-                                     stateId = Convert.ToInt32(dr["c_stateid"]),
-                                     stateName = dr["c_statename"].ToString()
-
-                                 }).ToList();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error State :" + ex.Message);
-            }
-            if (_conn.State == System.Data.ConnectionState.Open)
-            {
-                await _conn.CloseAsync();
-            }
-            return stateList;
-        }
-
-        public async Task<List<City>> GetCity(int stateid)
-        {
-            DataTable dt = new DataTable();
-            List<City> cityList = new List<City>();
             try
             {
                 if (_conn.State == System.Data.ConnectionState.Closed)
                 {
                     await _conn.OpenAsync();
                 }
-                using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_cities where c_stateid=@stateid", _conn))
+
+                using (var cm = new NpgsqlCommand("SELECT * FROM t_states", _conn))
+                using (var datar = await cm.ExecuteReaderAsync()) // ✅ Async reader
                 {
-                    cm.Parameters.AddWithValue("@stateid", stateid);
-
-                    _conn.Close();
-                    _conn.Open();
-                    NpgsqlDataReader datar = cm.ExecuteReader();
-                    if (datar.HasRows)
+                    while (await datar.ReadAsync()) // ✅ Async read
                     {
-                        dt.Load(datar);
+                        stateList.Add(new State
+                        {
+                            stateId = datar.GetInt32(datar.GetOrdinal("c_stateid")),
+                            stateName = datar.GetString(datar.GetOrdinal("c_statename"))
+                        });
                     }
-
-
-                    cityList = (from DataRow dr in dt.Rows
-                                select new City()
-                                {
-                                    cityId = Convert.ToInt32(dr["c_cityid"]),
-                                    cityName = dr["c_cityname"].ToString(),
-                                    stateId = Convert.ToInt32(dr["c_stateid"])
-
-                                }).ToList();
                 }
-
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error City :" + ex.Message);
-            }
-            if (_conn.State == System.Data.ConnectionState.Open)
-            {
-                await _conn.CloseAsync();
-            }
-            return cityList;
-        }
-
-
-        public async Task<List<Status>> GetStatusList()
-        {
-            if (_conn.State == System.Data.ConnectionState.Closed)
-            {
-                await _conn.OpenAsync();
-            }
-            DataTable dt = new DataTable();
-            List<Status> statusList = new List<Status>();
-            try
-            {
-                using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_status", _conn))
-                {
-
-                    NpgsqlDataReader datar = cm.ExecuteReader();
-                    if (datar.HasRows)
-                    {
-                        dt.Load(datar);
-                    }
-
-
-                    statusList = (from DataRow dr in dt.Rows
-                                  select new Status()
-                                  {
-                                      statusId = Convert.ToInt32(dr["c_statusid"]),
-                                      status = dr["c_statusname"].ToString()
-
-                                  }).ToList();
-                }
-
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Error status :" + ex.Message);
+                Console.WriteLine("Error State: " + ex.Message);
             }
             finally
             {
@@ -149,8 +58,93 @@ namespace MyContact.Repositories
                     await _conn.CloseAsync();
                 }
             }
+
+            return stateList;
+        }
+
+        public async Task<List<City>> GetCity(int stateid)
+        {
+            List<City> cityList = new List<City>();
+
+            try
+            {
+                if (_conn.State == System.Data.ConnectionState.Closed)
+                {
+                    await _conn.OpenAsync();
+                }
+
+                using (var cm = new NpgsqlCommand("SELECT * FROM t_cities WHERE c_stateid = @stateid", _conn))
+                {
+                    cm.Parameters.AddWithValue("@stateid", stateid);
+
+                    using (var datar = await cm.ExecuteReaderAsync()) // ✅ Async reader
+                    {
+                        while (await datar.ReadAsync()) // ✅ Async read
+                        {
+                            cityList.Add(new City
+                            {
+                                cityId = datar.GetInt32(datar.GetOrdinal("c_cityid")),
+                                cityName = datar.GetString(datar.GetOrdinal("c_cityname")),
+                                stateId = datar.GetInt32(datar.GetOrdinal("c_stateid"))
+                            });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error City: " + ex.Message);
+            }
+            finally
+            {
+                if (_conn.State == System.Data.ConnectionState.Open)
+                {
+                    await _conn.CloseAsync();
+                }
+            }
+
+            return cityList;
+        }
+
+        public async Task<List<Status>> GetStatusList()
+        {
+            List<Status> statusList = new List<Status>();
+
+            try
+            {
+                if (_conn.State == System.Data.ConnectionState.Closed)
+                {
+                    await _conn.OpenAsync();
+                }
+
+                using (var cm = new NpgsqlCommand("SELECT * FROM t_status", _conn))
+                using (var datar = await cm.ExecuteReaderAsync()) // ✅ Async reader
+                {
+                    while (await datar.ReadAsync()) // ✅ Async read
+                    {
+                        statusList.Add(new Status
+                        {
+                            statusId = datar.GetInt32(datar.GetOrdinal("c_statusid")),
+                            status = datar.GetString(datar.GetOrdinal("c_statusname"))
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error Status: " + ex.Message);
+            }
+            finally
+            {
+                if (_conn.State == System.Data.ConnectionState.Open)
+                {
+                    await _conn.CloseAsync();
+                }
+            }
+
             return statusList;
         }
+
 
         public async Task<int> Add(t_Contact contactData)
         {

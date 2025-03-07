@@ -14,9 +14,9 @@ builder.Services.AddControllersWithViews()
         options.HtmlHelperOptions.ClientValidationEnabled = true;
     });
 
-builder.Services.AddSingleton<IContactInterface, ContactRepository>();
-builder.Services.AddSingleton<IUserInterface, UserRepository>();
-builder.Services.AddSingleton<NpgsqlConnection>((UserRepository) =>
+builder.Services.AddScoped<IContactInterface, ContactRepository>();
+builder.Services.AddScoped<IUserInterface, UserRepository>();
+builder.Services.AddScoped<NpgsqlConnection>((UserRepository) =>
 {
     var connectionString = UserRepository.GetRequiredService<IConfiguration>().GetConnectionString("pgconn");
     return new NpgsqlConnection(connectionString);
