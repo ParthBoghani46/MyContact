@@ -1,4 +1,4 @@
-@model vm_Login
+@model Login
 @{
     ViewData["Title"] = "Login Page";
     Layout = "../Shared/_UserLayout.cshtml";
@@ -53,9 +53,15 @@
                 window.location.href = "/User/Register"; // Redirect to Register page
             });
 
+            $("input").on("focusin  foucusout", function () {
+                $(this).valid();
+            });
             $("form").submit(function (event) {
                 event.preventDefault(); // Prevent normal form submission
 
+                if (!$(this).valid()) {
+                    return; // Stop submission if validation fails
+                }
                 var formData = new FormData(this);
 
                 $.ajax({

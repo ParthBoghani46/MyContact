@@ -34,6 +34,7 @@ namespace MyContact.Models
         [NotMapped]
         public string ConfirmPassword { get; set; }
 
+        [Required(ErrorMessage = "Addres is required.")]
         [StringLength(500, ErrorMessage = "Address cannot exceed 500 characters.")]
         public string? c_Address { get; set; }
 
@@ -50,6 +51,7 @@ namespace MyContact.Models
         [RegularExpression(@"^(Male|Female|Other)$", ErrorMessage = "Gender must be 'Male', 'Female', or 'Other'.")]
         public string? c_Gender { get; set; }
 
+        [Required(ErrorMessage = "ProfilePicture is required.")]
         public IFormFile? ProfilePicture { get; set; }
 
     }

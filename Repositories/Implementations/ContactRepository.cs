@@ -13,14 +13,107 @@ namespace MyContact.Repositories
     {
         private readonly NpgsqlConnection _conn;
         private readonly IHttpContextAccessor _httpContextAccessor;
+
+
+
         public ContactRepository(NpgsqlConnection connection, IHttpContextAccessor httpContextAccessor)
         {
             _conn = connection;
             _httpContextAccessor = httpContextAccessor;
         }
 
+
+        public async Task<List<State>> GetState()
+        {
+            if (_conn.State == System.Data.ConnectionState.Closed)
+            {
+                await _conn.OpenAsync();
+            }
+            DataTable dt = new DataTable();
+            List<State> stateList = new List<State>();
+            try
+            {
+                using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_states", _conn))
+                {
+
+                    NpgsqlDataReader datar = cm.ExecuteReader();
+                    if (datar.HasRows)
+                    {
+                        dt.Load(datar);
+                    }
+                    stateList = (from DataRow dr in dt.Rows
+                                 select new State()
+                                 {
+                                     stateId = Convert.ToInt32(dr["c_stateid"]),
+                                     stateName = dr["c_statename"].ToString()
+
+                                 }).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error State :" + ex.Message);
+            }
+            if (_conn.State == System.Data.ConnectionState.Open)
+            {
+                await _conn.CloseAsync();
+            }
+            return stateList;
+        }
+
+        public async Task<List<City>> GetCity(int stateid)
+        {
+            DataTable dt = new DataTable();
+            List<City> cityList = new List<City>();
+            try
+            {
+                if (_conn.State == System.Data.ConnectionState.Closed)
+                {
+                    await _conn.OpenAsync();
+                }
+                using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_cities where c_stateid=@stateid", _conn))
+                {
+                    cm.Parameters.AddWithValue("@stateid", stateid);
+
+                    _conn.Close();
+                    _conn.Open();
+                    NpgsqlDataReader datar = cm.ExecuteReader();
+                    if (datar.HasRows)
+                    {
+                        dt.Load(datar);
+                    }
+
+
+                    cityList = (from DataRow dr in dt.Rows
+                                select new City()
+                                {
+                                    cityId = Convert.ToInt32(dr["c_cityid"]),
+                                    cityName = dr["c_cityname"].ToString(),
+                                    stateId = Convert.ToInt32(dr["c_stateid"])
+
+                                }).ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error City :" + ex.Message);
+            }
+            if (_conn.State == System.Data.ConnectionState.Open)
+            {
+                await _conn.CloseAsync();
+            }
+            return cityList;
+        }
+
+
         public async Task<List<Status>> GetStatusList()
         {
+            if (_conn.State == System.Data.ConnectionState.Closed)
+            {
+                await _conn.OpenAsync();
+            }
             DataTable dt = new DataTable();
             List<Status> statusList = new List<Status>();
             try
@@ -28,8 +121,6 @@ namespace MyContact.Repositories
                 using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_status", _conn))
                 {
 
-                    _conn.Close();
-                    _conn.Open();
                     NpgsqlDataReader datar = cm.ExecuteReader();
                     if (datar.HasRows)
                     {
@@ -51,19 +142,29 @@ namespace MyContact.Repositories
             {
                 Console.WriteLine("Error status :" + ex.Message);
             }
-            _conn.Close();
+            finally
+            {
+                if (_conn.State == System.Data.ConnectionState.Open)
+                {
+                    await _conn.CloseAsync();
+                }
+            }
             return statusList;
         }
 
         public async Task<int> Add(t_Contact contactData)
         {
+            if (_conn.State == System.Data.ConnectionState.Closed)
+            {
+                await _conn.OpenAsync();
+            }
             try
             {
                 var userId = _httpContextAccessor.HttpContext.Session.GetInt32("UserId");
                 using (NpgsqlCommand cm = new NpgsqlCommand(@"INSERT INTO t_contacts 
-                ( c_userid, c_contactname, c_email, c_address, c_mobile, c_group, c_image, c_status) 
+                ( c_userid, c_contactname, c_email, c_address, c_mobile, c_group, c_image, c_status,c_stateid,c_cityid) 
                 VALUES 
-                (@c_userid, @c_contactname, @c_email, @c_address, @c_mobile, @c_group, @c_image, @c_status)", _conn))
+                (@c_userid, @c_contactname, @c_email, @c_address, @c_mobile, @c_group, @c_image, @c_status,@c_stateid,@c_cityid)", _conn))
                 {
 
 
@@ -75,54 +176,73 @@ namespace MyContact.Repositories
                     cm.Parameters.AddWithValue("@c_group", contactData.c_Group);
                     cm.Parameters.AddWithValue("@c_image", contactData.c_Image == null ? DBNull.Value : contactData.c_Image);
                     cm.Parameters.AddWithValue("@c_status", contactData.c_Status);
+                    cm.Parameters.AddWithValue("@c_stateid", contactData.c_stateid);
+                    cm.Parameters.AddWithValue("@c_cityid", contactData.c_cityid);
 
-                    _conn.Close();
-                    _conn.Open();
                     cm.ExecuteNonQuery();
-                    _conn.Close();
+
                 }
                 return 1;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return 0;
+
             }
+            finally
+            {
+                if (_conn.State == System.Data.ConnectionState.Open)
+                {
+                    await _conn.CloseAsync();
+                }
+            }
+            return 0;
+
         }
 
         public async Task<int> Delete(string contactid)
         {
+            if (_conn.State == System.Data.ConnectionState.Closed)
+            {
+                await _conn.OpenAsync();
+            }
             try
             {
                 using (NpgsqlCommand cm = new NpgsqlCommand(@"DELETE FROM t_contacts WHERE c_contactid = @c_contactid", _conn))
                 {
-
-
                     cm.Parameters.AddWithValue("@c_contactid", int.Parse(contactid));
-                    _conn.Close();
-                    _conn.Open();
+
                     cm.ExecuteNonQuery();
-                    _conn.Close();
                 }
                 return 1;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return 0;
+
             }
+            finally
+            {
+                if (_conn.State == System.Data.ConnectionState.Open)
+                {
+                    await _conn.CloseAsync();
+                }
+            }
+            return 0;
         }
 
         public async Task<List<t_Contact>> GetAll()
         {
+            if (_conn.State == System.Data.ConnectionState.Closed)
+            {
+                await _conn.OpenAsync();
+            }
 
             DataTable dt = new DataTable();
             List<t_Contact> contactList = new List<t_Contact>();
-            using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_contacts where c_userid=@userId order by c_contactid", _conn))
+            await using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_contacts where c_userid=@userId order by c_contactid", _conn))
             {
 
-                _conn.Close();
-                _conn.Open();
                 NpgsqlDataReader datar = cm.ExecuteReader();
                 if (datar.HasRows)
                 {
@@ -141,24 +261,43 @@ namespace MyContact.Repositories
                                    c_Address = dr["c_address"].ToString(),
                                    c_Image = dr["c_image"].ToString(),
                                    c_Group = dr["c_group"].ToString(),
-                                   c_Status = (int)dr["c_status"]
+                                   c_Status = (int)dr["c_status"],
+                                   c_stateid = (int)dr["c_stateid"],
+                                   c_cityid = (int)dr["c_cityid"]
 
                                }).ToList();
             }
-            _conn.Close();
+            if (_conn.State == System.Data.ConnectionState.Open)
+            {
+                await _conn.CloseAsync();
+            }
             return contactList;
 
         }
 
         public async Task<List<ContactListViewModel>> GetAllByUser(string userid)
         {
+            if (_conn.State == System.Data.ConnectionState.Closed)
+            {
+                await _conn.OpenAsync();
+            }
             DataTable dt = new DataTable();
             List<ContactListViewModel> contactList = new List<ContactListViewModel>();
-            using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_contacts join t_status on t_contacts.c_status = t_status.c_statusid where c_userid=@userId", _conn))
+            string query = @"SELECT 
+                                t_contacts.*, 
+                                t_status.c_statusname, 
+                                t_Cities.c_cityname, 
+                                t_States.c_statename
+                            FROM t_contacts
+                            JOIN t_status ON t_contacts.c_status = t_status.c_statusid
+                            JOIN t_Cities ON t_contacts.c_cityid = t_Cities.c_cityid
+                            JOIN t_States ON t_Cities.c_stateid = t_States.c_stateid
+                            WHERE t_contacts.c_userid = @userId order by t_contacts.c_contactid;";
+
+            await using (NpgsqlCommand cm = new NpgsqlCommand(query, _conn))
             {
                 cm.Parameters.AddWithValue("@userId", Int32.Parse(userid));
-                _conn.Close();
-                _conn.Open();
+
 
                 NpgsqlDataReader datar = cm.ExecuteReader();
                 if (datar.HasRows)
@@ -182,12 +321,19 @@ namespace MyContact.Repositories
                                        c_Image = dr["c_image"].ToString(),
                                        c_Group = dr["c_group"].ToString(),
                                        c_Status = (int)dr["c_status"],
+                                       c_stateid = (int)dr["c_stateid"],
+                                       c_cityid = (int)dr["c_cityid"]
                                    },
-                                   c_StatusName = dr["c_statusname"].ToString()
+                                   c_StatusName = dr["c_statusname"].ToString(),
+                                   c_cityname = dr["c_cityname"].ToString(),
+                                   c_statename = dr["c_statename"].ToString()
 
                                }).ToList();
             }
-            _conn.Close();
+            if (_conn.State == System.Data.ConnectionState.Open)
+            {
+                await _conn.CloseAsync();
+            }
             return contactList;
         }
 
@@ -195,11 +341,14 @@ namespace MyContact.Repositories
         {
             DataTable dt = new DataTable();
             t_Contact contact = null;
-            using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_contacts WHERE c_contactid=@c_contactid", _conn))
+            if (_conn.State == System.Data.ConnectionState.Closed)
+            {
+                await _conn.OpenAsync();
+            }
+            await using (NpgsqlCommand cm = new NpgsqlCommand("select * from t_contacts WHERE c_contactid=@c_contactid", _conn))
             {
                 cm.Parameters.AddWithValue("@c_contactid", Convert.ToInt32(contactid));
-                _conn.Close();
-                _conn.Open();
+
                 NpgsqlDataReader datar = cm.ExecuteReader();
                 if (datar.Read())
                 {
@@ -213,48 +362,30 @@ namespace MyContact.Repositories
                         c_Address = datar["c_address"].ToString(),
                         c_Image = datar["c_image"].ToString(),
                         c_Group = datar["c_group"].ToString(),
-                        c_Status = (int)datar["c_status"]
+                        c_Status = (int)datar["c_status"],
+                        c_stateid = (int)datar["c_stateid"],
+                        c_cityid = (int)datar["c_cityid"]
                     };
                 }
             }
-            _conn.Close();
+            if (_conn.State == System.Data.ConnectionState.Open)
+            {
+                await _conn.CloseAsync();
+            }
             return contact;
         }
 
         public async Task<int> Update(t_Contact contactData)
         {
+            if (_conn.State == System.Data.ConnectionState.Closed)
+            {
+                await _conn.OpenAsync();
+            }
             try
             {
-                string oldImagePath = null;
-
-                // Fetch the old image path
-                using (NpgsqlCommand getOldImageCmd = new NpgsqlCommand("SELECT c_image FROM t_contacts WHERE c_contactid = @c_contactid", _conn))
-                {
-                    getOldImageCmd.Parameters.AddWithValue("@c_contactid", contactData.c_contactId);
-
-                    _conn.Open();
-                    object result = getOldImageCmd.ExecuteScalar();
-                    _conn.Close();
-
-                    if (result != null && result != DBNull.Value)
-                    {
-                        oldImagePath = result.ToString();
-                    }
-                }
-
-                // Delete the old image file if it exists
-                if (!string.IsNullOrEmpty(oldImagePath))
-                {
-                    string fullPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "contact_images", oldImagePath);
-
-                    if (File.Exists(fullPath))
-                    {
-                        File.Delete(fullPath);
-                    }
-                }
-
-                // Now proceed with updating the record
-                using (NpgsqlCommand cm = new NpgsqlCommand(@"UPDATE t_contacts 
+                // Update the contact record
+                await using (NpgsqlCommand cm = new NpgsqlCommand(@"
+            UPDATE t_contacts 
             SET 
                 c_userid = @c_userid, 
                 c_contactname = @c_contactname, 
@@ -263,7 +394,9 @@ namespace MyContact.Repositories
                 c_mobile = @c_mobile, 
                 c_group = @c_group, 
                 c_image = @c_image, 
-                c_status = @c_status 
+                c_status = @c_status, 
+                c_stateid = @c_stateid,
+                c_cityid = @c_cityid
             WHERE 
                 c_contactid = @c_contactid", _conn))
                 {
@@ -275,13 +408,17 @@ namespace MyContact.Repositories
                     cm.Parameters.AddWithValue("@c_group", contactData.c_Group);
                     cm.Parameters.AddWithValue("@c_image", contactData.c_Image ?? (object)DBNull.Value);
                     cm.Parameters.AddWithValue("@c_status", contactData.c_Status);
+                    cm.Parameters.AddWithValue("@c_stateid", contactData.c_stateid);
+                    cm.Parameters.AddWithValue("@c_cityid", contactData.c_cityid);
                     cm.Parameters.AddWithValue("@c_contactid", contactData.c_contactId);
 
-                    _conn.Open();
                     cm.ExecuteNonQuery();
-                    _conn.Close();
-                }
 
+                }
+                if (_conn.State == System.Data.ConnectionState.Open)
+                {
+                    await _conn.CloseAsync();
+                }
                 return 1;
             }
             catch (Exception ex)
@@ -289,7 +426,13 @@ namespace MyContact.Repositories
                 Console.WriteLine(ex.Message);
                 return 0;
             }
+            finally
+            {
+                if (_conn.State == System.Data.ConnectionState.Open)
+                {
+                    await _conn.CloseAsync();
+                }
+            }
         }
-
     }
 }

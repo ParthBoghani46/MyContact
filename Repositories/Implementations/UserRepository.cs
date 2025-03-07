@@ -17,6 +17,10 @@ namespace MyContact.Repositories.Implementations
 
         public async Task<t_User> GetUser(int userid)
         {
+            if (_conn.State == System.Data.ConnectionState.Closed)
+            {
+                await _conn.OpenAsync();
+            }
             t_User userData = new t_User();
             var query = "SELECT * FROM t_users WHERE c_userid=@c_userid;";
             try
@@ -24,7 +28,6 @@ namespace MyContact.Repositories.Implementations
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, _conn))
                 {
                     cmd.Parameters.AddWithValue("@c_userid", userid);
-                    await _conn.OpenAsync();
                     var reader = await cmd.ExecuteReaderAsync();
                     if (reader.Read())
                     {
@@ -44,19 +47,26 @@ namespace MyContact.Repositories.Implementations
             }
             finally
             {
-                await _conn.CloseAsync();
+                if (_conn.State == System.Data.ConnectionState.Open)
+                {
+                    await _conn.CloseAsync();
+                }
             }
             return userData;
         }
 
-        public async Task<t_User> Login(vm_Login user)
+        public async Task<t_User> Login(Login user)
         {
+            if (_conn.State == System.Data.ConnectionState.Closed)
+            {
+                await _conn.OpenAsync();
+            }
             t_User userData = null; // Change from 'new t_User()' to 'null'
 
             var query = "SELECT * FROM t_users WHERE c_email=@c_email AND c_password=@c_password;";
             try
             {
-                await _conn.OpenAsync();
+
                 using (NpgsqlCommand cmd = new NpgsqlCommand(query, _conn))
                 {
                     cmd.Parameters.AddWithValue("@c_email", user.c_Email);
@@ -84,7 +94,10 @@ namespace MyContact.Repositories.Implementations
             }
             finally
             {
-                await _conn.CloseAsync();
+                if (_conn.State == System.Data.ConnectionState.Open)
+                {
+                    await _conn.CloseAsync();
+                }
             }
 
             return userData; // Return null if user is not found
@@ -93,10 +106,13 @@ namespace MyContact.Repositories.Implementations
 
         public async Task<int> Register(t_User userData)
         {
+            if (_conn.State == System.Data.ConnectionState.Closed)
+            {
+                await _conn.OpenAsync();
+            }
             int status = 0;
             try
             {
-                await _conn.OpenAsync();
 
                 using (NpgsqlCommand comcheck = new NpgsqlCommand(@"SELECT COUNT(*) FROM t_Users WHERE c_email = @c_email;", _conn))
                 {
@@ -134,7 +150,10 @@ namespace MyContact.Repositories.Implementations
             }
             finally
             {
-                await _conn.CloseAsync();
+                if (_conn.State == System.Data.ConnectionState.Open)
+                {
+                    await _conn.CloseAsync();
+                }
             }
             return status;
         }

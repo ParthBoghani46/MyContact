@@ -1,6 +1,7 @@
 using MyContact.Models;
 using MyContact.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace MyContact
 {
@@ -19,6 +20,8 @@ namespace MyContact
             return View();
         }
 
+
+
         public async Task<ActionResult> List()
         {
             if (HttpContext.Session.GetInt32("UserId") != null)
@@ -35,15 +38,57 @@ namespace MyContact
         }
 
         [HttpGet]
+        public async Task<JsonResult> GetCities(int stateId)
+        {
+            var cities = await _contact.GetCity(stateId);
+            return Json(cities);
+        }
+
+
+
+        [HttpGet]
         public async Task<ActionResult> Create(string id = "")
         {
-            t_Contact contacts = new t_Contact();
-            if (id != "")
+            // Load Status List
+            List<Status> status = await _contact.GetStatusList();
+            ViewBag.StatusList = status.Select(s => new SelectListItem
             {
-                contacts = await _contact.GetOne(id);
+                Value = s.statusId.ToString(),
+                Text = s.status
+            }).ToList();
+
+            // Load State List
+            List<State> state = await _contact.GetState();
+            ViewBag.StateList = state.Select(s => new SelectListItem
+            {
+                Value = s.stateId.ToString(),
+                Text = s.stateName
+            }).ToList();
+
+            t_Contact contact = new t_Contact();
+            List<SelectListItem> cityList = new List<SelectListItem>(); // Initialize empty list
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                // Fetch contact details for editing
+                contact = await _contact.GetOne(id);
+
+                List<City> cities = await _contact.GetCity(contact.c_stateid);
+                cityList = cities.Select(c => new SelectListItem
+                {
+                    Value = c.cityId.ToString(),
+                    Text = c.cityName,
+                    Selected = c.cityId == contact.c_cityid  // Mark selected city
+                }).ToList();
+
             }
-            return View(contacts);
+
+            ViewBag.CityList = cityList; // Assign cities to ViewBag for dropdown
+
+            return View(contact);
         }
+
+
 
         [HttpPost]
         public async Task<IActionResult> Create(t_Contact contact)
@@ -54,47 +99,69 @@ namespace MyContact
                 {
                     if (contact.ContactPicture != null && contact.ContactPicture.Length > 0)
                     {
+                        var directoryPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/contact_images");
+                        Directory.CreateDirectory(directoryPath); // Ensure directory exists
 
-                        var fileName = contact.c_Email + Path.GetExtension(contact.ContactPicture.FileName);
-                        var filePath = Path.Combine("./wwwroot/contact_images/", fileName);
-                        Directory.CreateDirectory(Path.Combine("./wwwroot/contact_images"));
-                        contact.c_Image = fileName;
-                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        var fileNameWithoutExt = Path.GetFileNameWithoutExtension(contact.c_Email);
+                        var newFileExtension = Path.GetExtension(contact.ContactPicture.FileName);
+                        var newFileName = $"{fileNameWithoutExt}{newFileExtension}";
+                        var newFilePath = Path.Combine(directoryPath, newFileName);
+
+                        Console.WriteLine($"New file will be saved at: {newFilePath}");
+
+                        try
                         {
-                            contact.ContactPicture.CopyTo(stream);
+                            // Delete old files
+                            var oldFiles = Directory.GetFiles(directoryPath, fileNameWithoutExt + ".*");
+                            foreach (var oldFile in oldFiles)
+                            {
+                                Console.WriteLine($"Deleting old file: {oldFile}");
+                                System.IO.File.Delete(oldFile);
+                            }
+                            await Task.Delay(100);
+                            // Save the new profile image
+                            await using (var stream = new FileStream(newFilePath, FileMode.Create))
+                            {
+                                await contact.ContactPicture.CopyToAsync(stream);
+                            }
+
+                            Console.WriteLine("File saved successfully!");
+                            contact.c_Image = newFileName; // Save file name in the database
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine($"Error while saving file: {ex.Message}");
                         }
                     }
-                    // Console.WriteLine("contact.c_fname: " + contact.c_contactName);
-
                     contact.c_userId = (int)HttpContext.Session.GetInt32("UserId");
                     var result = 0;
+
                     if (contact.c_contactId == 0)
-                    {
+                    {// Assign only for new contact
                         result = await _contact.Add(contact);
                     }
                     else
                     {
+                        string contactid = Convert.ToString(contact.c_contactId);
                         result = await _contact.Update(contact);
                     }
 
                     if (result == 0)
                     {
-                        TempData["Message"] = "There is Some Error While Add or Update Contact";
-                        return RedirectToAction("List", "Contact");
+                        return Json(new { success = false, message = "There is some error while adding or updating contact" });
                     }
                     else
                     {
                         TempData["Message"] = "Contact Added/Updated Successfully";
-                        return RedirectToAction("List", "Contact");
+                        return Json(new { success = true, message = "Contact Added/Updated Successfully", redirectUrl = Url.Action("List", "Contact") });
                     }
-                    return View();
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+                    return Json(new { success = false, message = "There is some error while adding or updating contact" });
                 }
             }
-            return View();
+            return Json(new { success = false, message = "There is some error while adding or updating contact" });
         }
 
 

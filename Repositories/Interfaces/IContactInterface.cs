@@ -10,6 +10,9 @@ namespace MyContact.Repositories
     {
 
         Task<List<t_Contact>> GetAll();
+        Task<List<State>> GetState();
+
+        Task<List<City>> GetCity(int stateid);
         Task<List<Status>> GetStatusList();
         Task<List<ContactListViewModel>> GetAllByUser(string userid);
         Task<t_Contact> GetOne(string contactid);

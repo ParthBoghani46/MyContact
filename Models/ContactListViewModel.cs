@@ -10,6 +10,8 @@ namespace MyContact.Models
     public class ContactListViewModel
     {
         public t_Contact contact { get; set; }
+        public string c_cityname { get; set; }
+        public string c_statename { get; set; }
         public string c_StatusName { get; set; }
 
     }

@@ -1,7 +1,6 @@
 using FluentValidation;
 using MyContact.Repositories;
 using MyContact.Repositories.Implementations;
-using MyContact.Validators;
 using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,7 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews()
+    .AddViewOptions(options =>
+    {
+        options.HtmlHelperOptions.ClientValidationEnabled = true;
+    });
+
 builder.Services.AddSingleton<IContactInterface, ContactRepository>();
 builder.Services.AddSingleton<IUserInterface, UserRepository>();
 builder.Services.AddSingleton<NpgsqlConnection>((UserRepository) =>
@@ -26,7 +30,6 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddValidatorsFromAssemblyContaining<RegisterVMValidators>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

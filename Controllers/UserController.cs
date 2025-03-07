@@ -17,11 +17,9 @@ namespace MyContact.Controllers
 
         private readonly IUserInterface _user;
 
-        private readonly IValidator<RegisterVM> _validator;
-        public UserController(IUserInterface user, IValidator<RegisterVM> validator)
+        public UserController(IUserInterface user)
         {
             _user = user;
-            _validator = validator;
         }
 
         [HttpGet]
@@ -31,7 +29,7 @@ namespace MyContact.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(vm_Login login)
+        public async Task<IActionResult> Login(Login login)
         {
             if (!ModelState.IsValid)
             {
@@ -119,20 +117,6 @@ namespace MyContact.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult FRegister(RegisterVM model)
-        {
-            ValidationResult result = _validator.Validate((model));
-            if (!result.IsValid)
-            {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-                }
-                return View(model);
-            }
-            TempData["SuccessMessage"] = "Registration successful!";
-            return RedirectToAction("FRegister", "User");
-        }
+
     }
 }

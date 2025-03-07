@@ -2,14 +2,11 @@
 @using MyContact.Repositories
 @{
     ViewData["Title"] = "Contact List";
-    Layout = "../Shared/_ContactLayout.cshtml";
 }
 <div class="container mt-4">
     <h3>Contacts</h3>
-    <div id="responseMessage" class="mt-3">
-        <div class="alert @(TempData["Message"] != null ? "alert-primary" : "")">
-        @TempData["Message"]
-        </div>
+    <div >
+        <button id="btnAdd" class="btn btn-primary">Add</button>
     </div>
     <table class="table table-striped">
         <thead class="thead-dark">
@@ -21,6 +18,8 @@
                 <th>Group</th>
                 <th>Address</th>
                 <th>Mobile</th>
+                <th>State</th>
+                <th>City</th>
                 <th>Status</th>
                 <th>Delete</th>
             </tr>
@@ -39,13 +38,55 @@
                     <td>@contact.contact.c_Group</td>                    
                     <td>@contact.contact.c_Address</td>
                     <td>@contact.contact.c_Mobile</td>
+                    <td>@contact.c_statename</td>
+                    <td>@contact.c_cityname</td>
                     <td>@contact.c_StatusName</td>
-                    <td><a href="@Url.Action("Delete","Contact" , new {id = contact.contact.c_contactId})" class="btn btn-sm btn-primary">Delete</a></td>
+                    <td>
+    <button class="btn btn-sm btn-danger btn-delete" data-id="@contact.contact.c_contactId">
+        Delete
+    </button>
+</td>
+
                 </tr>
         }
         </tbody>
 
     </table>
 </div>
+@section Scripts{
+    
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("btnAdd").addEventListener("click", function () {
+        window.location.href = "/Contact/Create"; // Redirect to Add Contact
+    });
+
+    // Handle Delete Confirmation
+    document.querySelectorAll(".btn-delete").forEach(button => {
+        button.addEventListener("click", function () {
+            var contactId = this.getAttribute("data-id");
+            
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Yes, delete it!"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/Contact/Delete?id=" + contactId;
+                }
+            });
+        });
+    });
+});
 
 
+</script>
+
+}

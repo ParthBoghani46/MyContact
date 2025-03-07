@@ -9,75 +9,63 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = MyContact
 build_property.RootNamespace = MyContact
-build_property.ProjectDir = D:\Internship\Technology\MVC\MyContact\
+build_property.ProjectDir = D:\Internship\Technology\MVC\my contact\MyContact\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Internship\Technology\MVC\MyContact
+build_property.MSBuildProjectDirectory = D:\Internship\Technology\MVC\my contact\MyContact
 build_property._RazorSourceGeneratorDebug = 
 
-[D:/Internship/Technology/MVC/MyContact/Views/Contact/Create.cshtml]
+[D:/Internship/Technology/MVC/my contact/MyContact/Views/Contact/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdFxDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Internship/Technology/MVC/MyContact/Views/Contact/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdFxJbmRleC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Internship/Technology/MVC/MyContact/Views/Contact/List.cshtml]
+[D:/Internship/Technology/MVC/my contact/MyContact/Views/Contact/List.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ29udGFjdFxMaXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Internship/Technology/MVC/MyContact/Views/Home/Helper.cshtml]
+[D:/Internship/Technology/MVC/my contact/MyContact/Views/Home/Helper.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxIZWxwZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Internship/Technology/MVC/MyContact/Views/Home/Index.cshtml]
+[D:/Internship/Technology/MVC/my contact/MyContact/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Internship/Technology/MVC/MyContact/Views/Home/Privacy.cshtml]
+[D:/Internship/Technology/MVC/my contact/MyContact/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Internship/Technology/MVC/MyContact/Views/Shared/Error.cshtml]
+[D:/Internship/Technology/MVC/my contact/MyContact/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Internship/Technology/MVC/MyContact/Views/Shared/_ContactLayout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Db250YWN0TGF5b3V0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Internship/Technology/MVC/MyContact/Views/Shared/_UserLayout.cshtml]
+[D:/Internship/Technology/MVC/my contact/MyContact/Views/Shared/_UserLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Vc2VyTGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Internship/Technology/MVC/MyContact/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Internship/Technology/MVC/my contact/MyContact/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Internship/Technology/MVC/MyContact/Views/User/FRegister.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxGUmVnaXN0ZXIuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[D:/Internship/Technology/MVC/MyContact/Views/User/Login.cshtml]
+[D:/Internship/Technology/MVC/my contact/MyContact/Views/User/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Internship/Technology/MVC/MyContact/Views/User/Register.cshtml]
+[D:/Internship/Technology/MVC/my contact/MyContact/Views/User/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Internship/Technology/MVC/MyContact/Views/_ViewImports.cshtml]
+[D:/Internship/Technology/MVC/my contact/MyContact/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Internship/Technology/MVC/MyContact/Views/_ViewStart.cshtml]
+[D:/Internship/Technology/MVC/my contact/MyContact/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Internship/Technology/MVC/MyContact/Views/Shared/_Layout.cshtml]
+[D:/Internship/Technology/MVC/my contact/MyContact/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-1icfql7k27
